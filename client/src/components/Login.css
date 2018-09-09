@@ -104,7 +104,7 @@ body {
     height: 100%;
   }
   
-  #logbox {
+  .logbox {
     padding: 10px;
     margin: 50px auto;
     width: 340px;

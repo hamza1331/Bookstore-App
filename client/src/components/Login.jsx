@@ -29,7 +29,7 @@ class Login extends Component {
             email:this.state.logEmail,
             password:this.state.logPw
         }
-        const rawResponse = await fetch('/api/accounts/signin', {
+        await fetch('/api/accounts/signin', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -37,14 +37,18 @@ class Login extends Component {
             },
             body: JSON.stringify(finalData)
           }).then(res=>res.json()).then(data=>{
-              console.log(data)
-              this.setState({
-                logEmail:'',
-                logPw:''
-              })
-          }).catch(err=>console.log(err));
-         
-        
+              if(data.success){
+                localStorage.setItem('bookUserToken',data.token)
+                this.props.login(data.firstName)
+                this.props.history.push('/books')
+                this.setState({
+                  logEmail:'',
+                  logPw:''
+                })
+              }
+              else
+              alert(data.message)
+          }).catch(err=>console.error(err));
     }
    async handleSignup(e){
         e.preventDefault()
@@ -55,8 +59,7 @@ class Login extends Component {
                 lastName:this.state.lastName,
                 password:this.state.regPw
             }
-            await console.log(finalData)
-            const rawResponse = await fetch('/api/accounts/signup', {
+            await fetch('/api/accounts/signup', {
                 method: 'POST',
                 headers: {
                   'Accept': 'application/json',
@@ -64,7 +67,8 @@ class Login extends Component {
                 },
                 body: JSON.stringify(finalData)
               }).then(res=>res.json()).then(data=>{
-                  console.log(data)
+                  this.props.login(data.firstName)
+                  this.props.history.push('/books')
                   this.setState({
                     regEmail:'',
                     regPw:'',
@@ -72,8 +76,7 @@ class Login extends Component {
                     firstName:'',
                     lastName:''
                   })
-              }).catch(err=>console.log(err));
-             
+              }).catch(err=>console.error(err));             
         }
         else
         alert("Password should be same...")
@@ -81,10 +84,9 @@ class Login extends Component {
     render() {
         return (
             <div id="fullscreen_bg" className="fullscreen_bg">
-
      <div className="container">
      <div className="col-md-6">
-    <div id="logbox">
+    <div className="logbox">
       <form onSubmit={this.handleSignup}>
         <h1>Create an Account</h1>
         <input value={this.state.firstName} onChange={this.handleChange} name="firstName" type="text" placeholder="First Name" autoFocus="true" required="required" className="input pass"/>
@@ -98,7 +100,7 @@ class Login extends Component {
    </div>
     
    <div className="col-md-6">
-    <div id="logbox">
+    <div className="logbox">
       <form id="signup">
         <h1>Account Login</h1>
         <input onChange={this.handleChange} value={this.state.logEmail} name="logEmail" autoComplete='off' type="email" placeholder="Enter your email" className="input pass"/>
@@ -113,37 +115,15 @@ class Login extends Component {
     }
 }
 
-//is func mein obj ret krte hain us mein se apni required property k liye obj mein 
-//propName:state.reducerKaName.requiredPropName
-
 function mapStateToProps(state){
     return({
     })
 }
 
-
-//is func mein 1 obj ret krte hain jis mein pehle woh name rkhte hain jis se hum prop mein func
-//ko call krna chahte hain dispatch k liye, usay 1 func per assign krte hain jis mein dispatch
-//call hota hai us k param mein jo action bnaya hua hota hai woh call krte hain!!'
-/* func k andar obj ret krne ka syntax: 
-return({
-    funcNameInProp:(paramIfAny)=>{
-        dispatch(funcNameInAction(paramIfAny))
-    }
-})
-
-*/
-
 function mapActionsToProps(dispatch){
     return({
-        // changeState:(name)=>{
-        //     dispatch(changeState(name))
-        // },
-        // changeAge:(age)=>{
-        //     dispatch(changeAge(age))
-        // }
-        login:()=>{
-            dispatch(LoginAction())
+        login:(userName)=>{
+            dispatch(LoginAction(userName))
         }
     })
 }

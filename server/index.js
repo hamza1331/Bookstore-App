@@ -10,7 +10,7 @@ const User = require('./models/User')
 const UserSession = require('./models/UserSession')
 const port = process.env.PORT || 8000
 app.use(bodyParser.json())  //Body Parser MiddleWare
-
+app.use(express.json())
 mongooose.connect('mongodb://localhost:27017/bookstore') //MongoDB connection using Mongoose
 var db = mongooose.connection //Mongo Connection Instance
 
@@ -138,6 +138,7 @@ app.post('/api/accounts/signin',(req,res)=>{
   let {
       email,password
   } = body
+
   email = email.toLowerCase()
   if(!email){return res.send({success:false,message:"User must must have an Email"})};
   if(!password){return res.send({success:false,message:"User must must have a Password"})}
@@ -156,12 +157,14 @@ app.post('/api/accounts/signin',(req,res)=>{
       userSession.userId = user._id
       userSession.save((err,doc)=>{
           if(err){
+
               return res.send({success:false,message:'Internal Server Error'})
           }
           return res.send({
               success:true,
               message:'Sign in Succesfully',
-              token:doc._id
+              token:doc._id,
+              firstName:user.firstName
           })
       })
 
