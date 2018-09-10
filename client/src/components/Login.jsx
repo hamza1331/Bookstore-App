@@ -40,7 +40,7 @@ class Login extends Component {
               if(data.success){
                 localStorage.setItem('bookUserToken',data.token)
                 this.props.login(data.firstName)
-                this.props.history.push('/books')
+                this.props.history.push('/')
                 this.setState({
                   logEmail:'',
                   logPw:''
@@ -68,7 +68,7 @@ class Login extends Component {
                 body: JSON.stringify(finalData)
               }).then(res=>res.json()).then(data=>{
                   this.props.login(data.firstName)
-                  this.props.history.push('/books')
+                  this.props.history.push('/')
                   this.setState({
                     regEmail:'',
                     regPw:'',

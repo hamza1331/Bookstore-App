@@ -6,11 +6,12 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "babel-eslint": "^9.0.0",
     "bootstrap": "^3.3.7",
+    "eslint-plugin-react": "^7.11.1",
     "history": "^4.7.2",
     "insta-scraper": "^1.0.2",
     "instagram-scraping": "^1.0.2",
-    "mdbreact": "^4.4.0",
     "papercss": "^1.5.1",
     "react": "^15.6.2",
     "react-dom": "^15.4.2",
@@ -21,6 +22,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "react-spinners": "^0.3.2",
+    "reactstrap": "^6.4.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.78.3",

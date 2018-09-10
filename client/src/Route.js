@@ -13,8 +13,8 @@ class Routers extends Component {
         return (
             <Router history={history}>
                 <div>
-                    <Route exact path="/" component={Login} />
-                    <Route path="/books" component={Books} />
+                    <Route path="/login" component={Login} />
+                    <Route exact path="/" component={Books} />
                     <Route  path="/genres" component={Genre} />
                 </div>
             </Router>

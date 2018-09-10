@@ -1,17 +1,18 @@
 import { 
     login,
-    logout
+    logout,
+    addBookInStore
 
 } from "../actions/actionNames";
 const initialState = {
-    isLoggedIn:true,
+    isLoggedIn:false,
     userName:'',
+    books:[]
 }
 
 export default (state = initialState,action)=>{
     switch(action.type){
         case login:
-        console.log(action.payload)
         return{
             ...state,
             isLoggedIn:true,
@@ -22,6 +23,12 @@ export default (state = initialState,action)=>{
             ...state,
             isLoggedIn:false,
             userName:''
+        }
+        case addBookInStore:
+        console.log(action.payload)
+        return {
+            ...state,
+            books:[...state.books,action.payload]
         }
         default:
         return state
