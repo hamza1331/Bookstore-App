@@ -1,7 +1,10 @@
 import { 
     login,
     logout,
-    addBookInStore
+    addBookInStore,
+    deleteBook,
+    showBookModal,
+    hideBookModal
 } from "./actionNames";
 
 
@@ -11,6 +14,28 @@ export function LoginAction(username){
         dispatch({
             type:login,
             payload:username
+        })
+    }
+}
+export function showBookModalAction(){
+    return dispatch=>{
+        dispatch({
+            type:showBookModal
+        })
+    }
+}
+export function hideBookModalAction(){
+    return dispatch=>{
+        dispatch({
+            type:hideBookModal
+        })
+    }
+}
+export function deleteBookAction(id){
+    return dispatch=>{
+        dispatch({
+            type:deleteBook,
+            payload:id
         })
     }
 }

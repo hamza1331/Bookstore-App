@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './Admin.css'
-import { LogoutAction,addBookInStoreAction} from "../store/actions/actions";
+import BookModal from './BookModal'
+import { LogoutAction,addBookInStoreAction,deleteBookAction,showBookModalAction} from "../store/actions/actions";
 import Card from './Card'
 class Books extends Component {
     constructor(props){
@@ -14,9 +15,12 @@ class Books extends Component {
         this.handleBookDelete = this.handleBookDelete.bind(this)
     }
     componentDidMount(){
-        fetch('/api/books').then(res=>res.json()).then(data=>{
-            data.map(book=>this.props.addBookInStore(book))
-        }).catch(err=>console.error(err))
+        if(!this.props.books.length){
+            fetch('/api/books').then(res=>res.json()).then(data=>{
+                data.map(book=>this.props.addBookInStore(book))
+            }).catch(err=>console.error(err))
+        }
+        
     }
     handleLogout(e){
         e.preventDefault()
@@ -38,7 +42,7 @@ class Books extends Component {
         console.log(id)
     }
     async handleBookDelete(id){
-        await fetch('/api/accounts/signin', {
+        await fetch('/api/books/'+id, {
             method: 'DELETE',
             headers: {
               'Accept': 'application/json',
@@ -46,19 +50,11 @@ class Books extends Component {
             },
           }).then(res=>res.json()).then(data=>{
               if(data){
-                  console.log('data deleted...')
+                  this.props.deleteBook(id)
               }
           }).catch(err=>console.error(err));
     }
     render() {
-        // if(!this.props.isLoggedIn)
-        // {
-        //     return(
-        //         <div>User must login...</div>
-        //     )
-        // }
-        // else
-        // return (
         return(
             <div>
             <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -74,6 +70,9 @@ class Books extends Component {
               </div>
             </nav>
             <br/><br/><br/>
+            {this.props.isLoggedIn && 
+          <div className='text-center'><button onClick={()=>this.props.showBookModal()} className="btn btn-xlarge btn-warning">INSERT A BOOK</button></div>
+            }
             <div className="container">
             <div className="row">
             <div className="col-md-8">
@@ -101,6 +100,7 @@ class Books extends Component {
             </div>
             </div>
             </div>
+            <BookModal/>
             </div>
         )
         // )
@@ -122,6 +122,12 @@ function mapActionsToProps(dispatch){
         },
         addBookInStore:(book)=>{
             dispatch(addBookInStoreAction(book))
+        },
+        deleteBook:(id)=>{
+            dispatch(deleteBookAction(id))
+        },
+        showBookModal:()=>{
+            dispatch(showBookModalAction())
         }
     })
 }

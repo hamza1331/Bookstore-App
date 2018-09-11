@@ -1,13 +1,16 @@
 import { 
     login,
     logout,
-    addBookInStore
-
+    addBookInStore,
+    deleteBook,
+    showBookModal,
+    hideBookModal
 } from "../actions/actionNames";
 const initialState = {
-    isLoggedIn:false,
+    isLoggedIn:true,
     userName:'',
-    books:[]
+    books:[],
+    bookModal:false
 }
 
 export default (state = initialState,action)=>{
@@ -18,6 +21,22 @@ export default (state = initialState,action)=>{
             isLoggedIn:true,
             userName:action.payload
         }
+        case showBookModal:
+        return{
+            ...state,
+            bookModal:true
+        }
+        case hideBookModal:
+        return {
+            ...state,
+            bookModal:false
+        }
+        case deleteBook:
+        let updatedBooks = state.books.filter(book=>book._id!==action.payload)
+        return{
+            ...state,
+            books:updatedBooks
+        }
         case logout:
         return {
             ...state,
@@ -25,7 +44,6 @@ export default (state = initialState,action)=>{
             userName:''
         }
         case addBookInStore:
-        console.log(action.payload)
         return {
             ...state,
             books:[...state.books,action.payload]

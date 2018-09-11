@@ -10,13 +10,9 @@
     "bootstrap": "^3.3.7",
     "eslint-plugin-react": "^7.11.1",
     "history": "^4.7.2",
-    "insta-scraper": "^1.0.2",
-    "instagram-scraping": "^1.0.2",
-    "papercss": "^1.5.1",
     "react": "^15.6.2",
     "react-dom": "^15.4.2",
     "react-logger": "^1.1.0",
-    "react-modal": "^3.4.2",
     "react-redux": "^5.0.7",
     "react-responsive-modal": "^2.0.1",
     "react-router-dom": "^4.2.2",
@@ -25,8 +21,6 @@
     "reactstrap": "^6.4.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "semantic-ui-react": "^0.78.3",
-    "sfcookies": "^1.0.2",
     "styled-components": "^3.3.3"
   },
   "scripts": {
