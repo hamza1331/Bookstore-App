@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Modal from 'react-responsive-modal'
 import { hideBookModalAction,addBookInStoreAction } from "../store/actions/actions";
-class QuizModal extends Component {
+class BookModal extends Component {
     constructor(props){
         super(props)
         this.handleChange= this.handleChange.bind(this)
@@ -182,4 +182,4 @@ function mapActionsToProps(dispatch){
         }
     })
 }
-export default connect(mapStateToProps,mapActionsToProps)(QuizModal)
+export default connect(mapStateToProps,mapActionsToProps)(BookModal)

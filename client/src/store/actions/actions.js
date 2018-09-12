@@ -4,7 +4,10 @@ import {
     addBookInStore,
     deleteBook,
     showBookModal,
-    hideBookModal
+    hideBookModal,
+    showUpdateModal,
+    hideUpdateModal,
+    newBookUpdate
 } from "./actionNames";
 
 
@@ -17,6 +20,33 @@ export function LoginAction(username){
         })
     }
 }
+
+export function newBookUpdateAction(book){
+    return dispatch=>{
+        dispatch({
+            type:newBookUpdate,
+            payload:book
+        })
+    }
+}
+
+export function hideUpdateModalAction(){
+    return dispatch=>{
+        dispatch({
+            type:hideUpdateModal
+        })
+    }
+}
+
+export function showUpdateModalaction(index){
+    return dispatch=>{
+        dispatch({
+            type:showUpdateModal,
+            payload:index
+        })
+    }
+}
+
 export function showBookModalAction(){
     return dispatch=>{
         dispatch({

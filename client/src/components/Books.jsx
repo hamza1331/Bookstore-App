@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './Admin.css'
 import BookModal from './BookModal'
-import { LogoutAction,addBookInStoreAction,deleteBookAction,showBookModalAction} from "../store/actions/actions";
+import BookUpdateModal from './BookUpdateModal'
+import { LogoutAction,addBookInStoreAction,deleteBookAction,showBookModalAction,showUpdateModalaction} from "../store/actions/actions";
 import Card from './Card'
 class Books extends Component {
     constructor(props){
@@ -38,8 +39,8 @@ class Books extends Component {
         e.preventDefault()
         this.props.history.push('/login')
     }
-    handleBookUpdate(id){
-        console.log(id)
+    handleBookUpdate(index){
+        this.props.showUpdateModal(index)
     }
     async handleBookDelete(id){
         await fetch('/api/books/'+id, {
@@ -86,6 +87,7 @@ class Books extends Component {
                     buy_url={book.buy_url}
                     image_url={book.image_url}
                     author={book.author}
+                    index={index}
                     id={book._id}
                     showControls={this.props.isLoggedIn}
                     handleUpdate={this.handleBookUpdate}
@@ -101,6 +103,7 @@ class Books extends Component {
             </div>
             </div>
             <BookModal/>
+            <BookUpdateModal/>
             </div>
         )
         // )
@@ -128,6 +131,9 @@ function mapActionsToProps(dispatch){
         },
         showBookModal:()=>{
             dispatch(showBookModalAction())
+        },
+        showUpdateModal:(index)=>{
+            dispatch(showUpdateModalaction(index))
         }
     })
 }

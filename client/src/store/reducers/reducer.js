@@ -4,13 +4,19 @@ import {
     addBookInStore,
     deleteBook,
     showBookModal,
-    hideBookModal
+    hideBookModal,
+    showUpdateModal,
+    hideUpdateModal,
+    newBookUpdate
 } from "../actions/actionNames";
 const initialState = {
     isLoggedIn:true,
     userName:'',
     books:[],
-    bookModal:false
+    bookModal:false,
+    updateModal:false,
+    updateBook:{},
+    updateIndex:0
 }
 
 export default (state = initialState,action)=>{
@@ -20,6 +26,31 @@ export default (state = initialState,action)=>{
             ...state,
             isLoggedIn:true,
             userName:action.payload
+        }
+        case showUpdateModal:
+        let newBook = state.books[action.payload]
+        return {
+            ...state,
+            updateBook:newBook,
+            updateModal:true,
+            updateIndex:action.payload
+        }
+        case newBookUpdate:
+        let updatedBooksArray = state.books.map((book,index)=>{
+            if(index===state.updateIndex)
+                return action.payload
+            else
+            return book
+        })
+        return {
+            ...state,
+            books:updatedBooksArray
+        }
+        case hideUpdateModal:
+        return {
+            ...state,
+            updateBook:{},
+            updateModal:false
         }
         case showBookModal:
         return{
