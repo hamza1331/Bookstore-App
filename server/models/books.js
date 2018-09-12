@@ -66,7 +66,7 @@ module.exports.updateBook = function(id,book,callback){
         image_url:book.image_url,
         buy_url:book.buy_url
     }
-    Book.findOneAndUpdate(query,updatedBook,{},callback)
+    Book.findOneAndUpdate(query,updatedBook,{new:true},callback)
 }
 
 //Remove Book Function
