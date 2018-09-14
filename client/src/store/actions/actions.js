@@ -7,7 +7,10 @@ import {
     hideBookModal,
     showUpdateModal,
     hideUpdateModal,
-    newBookUpdate
+    newBookUpdate,
+    pushGenre,
+    deleteGenre,
+    updateGenre
 } from "./actionNames";
 
 
@@ -17,6 +20,30 @@ export function LoginAction(username){
         dispatch({
             type:login,
             payload:username
+        })
+    }
+}
+export function updateGenreAction(genre){
+    return dispatch=>{
+        dispatch({
+            type:updateGenre,
+            payload:genre
+        })
+    }
+}
+export function deleteGenreAction(id){
+    return dispatch=>{
+        dispatch({
+            type:deleteGenre,
+            payload:id
+        })
+    }
+}
+export function pushGenreAction(genre){
+    return dispatch=>{
+        dispatch({
+            type:pushGenre,
+            payload:genre
         })
     }
 }

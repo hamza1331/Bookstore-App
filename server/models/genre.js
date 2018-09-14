@@ -30,7 +30,7 @@ module.exports.updateGenre = function(id,genre,callback){
     let updatedGenre = {
         name:genre.name
     }
-    Genre.findOneAndUpdate(query,updatedGenre,{},callback)
+    Genre.findOneAndUpdate(query,updatedGenre,{new:true},callback)
 }
 
 //Remove Genre Function

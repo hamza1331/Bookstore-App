@@ -40,8 +40,9 @@ app.post('/api/genres',function(req,res){
 app.put('/api/genres/:_id',function(req,res){
     let id = req.params._id
     let genre = req.body
+    delete genre.id
     Genre.updateGenre(id,genre,function(err,genre){
-        if(err)throw err
+        if(err){res.json({message:err})}
 
         res.json(genre)
     })

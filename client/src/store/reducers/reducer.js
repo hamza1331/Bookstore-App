@@ -7,7 +7,10 @@ import {
     hideBookModal,
     showUpdateModal,
     hideUpdateModal,
-    newBookUpdate
+    newBookUpdate,
+    pushGenre,
+    deleteGenre,
+    updateGenre
 } from "../actions/actionNames";
 const initialState = {
     isLoggedIn:true,
@@ -16,7 +19,8 @@ const initialState = {
     bookModal:false,
     updateModal:false,
     updateBook:{},
-    updateIndex:0
+    updateIndex:0,
+    genres:[]
 }
 
 export default (state = initialState,action)=>{
@@ -57,16 +61,38 @@ export default (state = initialState,action)=>{
             ...state,
             bookModal:true
         }
+        case updateGenre:
+        let updatedGenresArray = state.genres.map((genre)=>{
+            if(genre._id===action.payload.id)
+                return action.payload.data
+            else
+                return genre
+        })
+        return {
+            ...state,
+            genres:updatedGenresArray
+        }
         case hideBookModal:
         return {
             ...state,
             bookModal:false
+        }
+        case pushGenre:
+        return {
+            ...state,
+            genres:[...state.genres,action.payload]
         }
         case deleteBook:
         let updatedBooks = state.books.filter(book=>book._id!==action.payload)
         return{
             ...state,
             books:updatedBooks
+        }
+        case deleteGenre:
+        let updatedGenres = state.genres.filter(genre=>genre._id!==action.payload)
+        return {
+            ...state,
+            genres:updatedGenres
         }
         case logout:
         return {

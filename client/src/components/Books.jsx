@@ -30,7 +30,7 @@ class Books extends Component {
     }
     handleGenreLink(e){
         e.preventDefault()
-        console.log('hit for Genre Page..')
+        this.props.history.push('/genres')
     }
     handleHomeLink(e){
         e.preventDefault()

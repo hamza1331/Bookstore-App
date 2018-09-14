@@ -7,6 +7,9 @@ const hideBookModal = 'HIDE_BOOK_MODAL'
 const showUpdateModal = 'SHOW_UPDATE_MODAL'
 const hideUpdateModal = 'HIDE_UPDATE_MODAL'
 const newBookUpdate = 'NEW_BOOK_UPDATE'
+const pushGenre = 'PUSH_GENRE'
+const deleteGenre = 'DELETE_GENRE'
+const updateGenre = 'UPDATE_GENRE'
 export{
     login,
     logout,
@@ -16,5 +19,8 @@ export{
     showUpdateModal,
     hideBookModal,
     hideUpdateModal,
-    newBookUpdate
+    newBookUpdate,
+    pushGenre,
+    deleteGenre,
+    updateGenre
 }
